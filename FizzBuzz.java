@@ -10,7 +10,7 @@ import java.util.List;
 public class FizzBuzz {
 
 	public List<String> fizzBuzz(int n) {
-
+		
 		List<String> list = new ArrayList<String>(n);
 		int f = 1;
 		int b = 1;
