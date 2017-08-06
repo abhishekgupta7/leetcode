@@ -25,6 +25,12 @@ public class LargestRectangleHistogram {
        }
        return maxArea;
    }
+    
+   public static void main(String st[]) {
+	   int a[] = {4,2,0,3,2,5};
+	   System.out.println( new LargestRectangleHistogram().largestRectangleArea(a));
+   }
+   
 
 
 }
