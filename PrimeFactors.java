@@ -5,6 +5,8 @@ import java.util.List;
 
 public class PrimeFactors {
 	
+	
+	
 	List<Integer> getFactors(int n) {
 		
 		if(n <=1) {
