@@ -64,13 +64,13 @@ public class DesignSankeGame {
     @param food - A list of food positions
     E.g food = [[1,1], [1,0]] means the first food is positioned at [1,1], the second is at [1,0]. */
 
-Deque<int[]> snake = new LinkedList<>();
+Deque<int[]> snake = new java.util.LinkedList<>();
 Set<String> set = new HashSet<>();
 int fp = 0;
 int m = 0;
 int n = 0;
 int food[][];
-public SnakeGame(int width, int height, int[][] food) {
+public DesignSankeGame(int width, int height, int[][] food) {
     this.food = food;
     m = height;
     n = width;
