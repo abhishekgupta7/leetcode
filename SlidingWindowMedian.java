@@ -1,31 +1,20 @@
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class SlidingWindowMedian {
-
-	private Queue<Double> minHeap = null;
-	private Queue<Double> maxHeap = null;
+	private Queue<Integer> minHeap = null;
+	private Queue<Integer> maxHeap = null;
 	
 	
-	public static void main(String st[]) {
-		
-		
-		System.out.println();
-		Arrays.toString(new SlidingWindowMedian().medianSlidingWindow( new int[]{2,3},2));
-	}
+	
 
-	public double[] medianSlidingWindow(int[] n, int k) {
+	public double[] medianSlidingWindow(int[] nums, int k) {
 
-		if (n == null) {
+		if (nums == null) {
 			return null;
 		}
-		Double[] nums = new Double[n.length];
 		
-		for(int i = 0;i<nums.length;i++) {
-			nums[i] = (double)n[i];
-		}
 		minHeap = new PriorityQueue<>();
 		maxHeap = new PriorityQueue<>(10, Collections.reverseOrder());
 
@@ -57,20 +46,27 @@ public class SlidingWindowMedian {
 		}
 	}
 
-	void add(double num) {
+	void add(int num) {
 
 		maxHeap.add(num);
 		minHeap.add(maxHeap.poll());
 		reBalance();
-
+		
 	}
 
 	double getMedian() {
 
-		return (minHeap.size() == maxHeap.size()) ? (maxHeap.peek() + minHeap.peek() )/ 2.0 : maxHeap.peek();
-		//		//not 		return (minHeap.size() == maxHeap.size()) ? (maxHeap.peek() + minHeap.peek() / 2.0) : maxHeap.peek();
+		return (minHeap.size() == maxHeap.size()) ? ((double) maxHeap.peek() + (double) minHeap.peek())/ 2.0 : (double)  maxHeap.peek();
+		//not 		return (minHeap.size() == maxHeap.size()) ? (maxHeap.peek() + minHeap.peek() / 2.0) : maxHeap.peek();
         // not 		return (minHeap.size() == maxHeap.size()) ? (long)(maxHeap.peek() + minHeap.peek() / 2.0) : maxHeap.peek();
 
+
+	}
+	public static void main(String st[]) {
+		
+		int nums[] = {5,3,10,-1};
+		new SlidingWindowMedian().medianSlidingWindow(nums, 5);
+		
 	}
 
 }

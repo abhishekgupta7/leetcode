@@ -1,4 +1,8 @@
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * 
@@ -34,7 +38,7 @@ import java.util.Arrays;
  */
 public class TaskScheduler {
 
-	public int leastInterval(char[] tasks, int n) {
+	public int leastInterval_1(char[] tasks, int n) {
 
 		if (tasks == null || tasks.length == 0) {
 			return 0;
@@ -75,11 +79,63 @@ public class TaskScheduler {
 	
 	public static void main(String st[]) {
 		
-		char ch[] = new char[]{'A','B','A'};
+		char ch[] = new char[]{'A','A','A','B','B','B'};
 		
-		System.out.println(new TaskScheduler().leastInterval(ch, 2));
+		System.out.println(new TaskScheduler().leastInterval(ch, 0));
 		
 		
 	}
+	
+	public int leastInterval(char[] tasks, int n) {
+        
+        if(tasks == null) {
+            return 0;
+        }
+        
+        int map[] = new int[26];
+        
+        for(char ch : tasks) {
+            
+            map[ch-'A']++;
+            
+        }
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>(26,Collections.reverseOrder());
+        for(int c : map) {
+            if(c == 0) {
+                continue;
+            }
+            
+            pq.add(c);
+        }
+        System.out.println(pq.size());
+        int time = 0;
+        
+        while(!pq.isEmpty()) {
+            
+            int i =0;
+            List<Integer> next = new LinkedList<>();
+            
+            while(i<=n) {
+                
+                
+                int curr = pq.isEmpty() ? 0 : (pq.poll()-1);                
+                if(curr !=0 ) {
+                        next.add(curr);
+                }
+                time++;
+                if(pq.isEmpty() && next.isEmpty()) {
+                   break;
+                }
+                i++;
+            }
+            for(int l : next) {
+            	pq.add(l);
+            }
+            
+        }
+        return time;
+        
+    }
 
 }

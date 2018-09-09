@@ -33,10 +33,118 @@ Note:
  */
 public class Game24 {
 	
-public boolean judgePoint24(int[] nums) {
+final double eps = 0.001;
+    
+
+public static void main(String st[]) {
+	
+	int a[] = { 6, 4};
+	System.out.println(new Game24().judgePoint24(a));
+}
+    
+    List<List<Integer>> getPer(int[] nums, int p) {
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        
+        if(nums.length -1 == p) {
+            List<Integer> l = new ArrayList<>();
+            l.add(nums[p]);
+            ans.add(l);
+            return ans;
+        }
+        
+        List<List<Integer>> r = getPer(nums, p+1); 
+        
+        for(List<Integer> l : r) {
+            
+            for(int i =0;i<=l.size();i++) {
+                List<Integer> list = new ArrayList<>(l);
+                list.add(i,nums[p]);
+                ans.add(list);
+            }
+            
+            
+        }
+        return ans;
+
+         
         
         
+    }
+    public boolean judgePoint24(int[] nums) {
         
+        List<List<Integer>> list = getPer(nums,0);
+        
+        double n[] = new double[nums.length];
+        
+        for(List<Integer> l : list) {
+            System.out.println(l);
+            for(int i =0;i<l.size();i++) {
+
+                n[i] = l.get(i);
+            }
+
+            List<Double> ans = getCal(n, 0, n.length-1);
+
+            for(Double n1 : ans) {
+
+                if(Math.abs(n1-24)< eps) {
+                    return true;
+                }
+
+
+            }
+    }
+        return false;
+    }
+    
+    List<Double> getCal(double[] nums, int s, int e) {
+        
+        if(s>e) {
+            return new ArrayList<>();
+        }
+        List<Double> ans = new ArrayList<>();
+        if(s == e) {
+            ans.add(nums[e]);
+            return ans;
+        }
+        
+        
+        for(int i = s;i<e;i++) {
+            
+            List<Double> l = getCal(nums, s,i);
+            List<Double> r = getCal(nums, i+1,e);
+            for(double ln : l) {
+                for(double rn : r) {
+                    
+                    ans.addAll(doCal(ln,rn));
+                }
+            }
+        }
+        return ans;
+        
+        
+    }
+    
+    List<Double> doCal(double n1, double n2) {
+        
+        List<Double> ans = new ArrayList<>(4);    
+        
+        ans.add(n1+n2);
+        ans.add(n1-n2);
+        //ans.add(n2-n1);
+        ans.add(n1*n2);
+        ans.add(n1/n2);
+        //ans.add(n2/n1);
+
+        return ans;
+    }	
+	
+	
+
+        
+        
+        /*
         //List<Double> n2 = new ArrayList<>();
         
         for(int i =0;i<nums.length;i++) {
@@ -161,6 +269,6 @@ public boolean judgePoint24(int[] nums) {
             }
         }
         return false;
-    }
+    }*/
 
 }
